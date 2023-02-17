@@ -57,7 +57,7 @@
 <body>
     <div id="typedtext"></div>
     <div class="navigate-to">
-        <a href="muoibaythanghai.html"><i class="fa fa-arrow-right"></i></a>
+        <a onclick="myFunction()"><i class="fa fa-arrow-right"></i></a>
       </div>
     <script>
         /*
@@ -100,6 +100,23 @@
           }
         }
         typewriter();
+        function myFunction() {
+          const getDate = new Date();
+          const timeNow = getDate.getTime();
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({name: "Luan ^^",id: "1998",time: timeNow })
+          };
+          
+          fetch('https://63ef3817271439b7fe6a42fe.mockapi.io/api/v1/loginnote', requestOptions)
+          .then(response => {
+            window.location.href = 'muoibaythanghai.html';
+          })
+          .catch(error => {
+            window.location.href = 'muoibaythanghai.html';
+          });
+        }
       </script>
 </body>
 </html>
