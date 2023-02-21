@@ -78,6 +78,23 @@
       border-radius: 20px;
       text-align: left;
     }
+    .myStatus {
+      width: 100%;
+      position: absolute;
+      bottom: -26px;
+      right: 12px;
+      text-align: center;
+      z-index: 99999;
+    }
+    #status {
+      color: rgb(164, 155, 107);
+      text-align: center;
+      font-size: 16px;
+      margin: 0 40px;
+      font-family: "Roboto";
+      z-index: 5;
+      font-weight: 500;
+    }
   </style>
   <body>
     <div id="typedtext"></div>
@@ -86,6 +103,7 @@
       <div class="navigate-to">
         <a onclick="myFunction()">Gửi tớ</a>
       </div>
+      <div class="myStatus"><span id="status"></span></div>
     </div>
     <script>
       /*
@@ -142,9 +160,11 @@
         )
           .then((response) => {
             // window.location.href = "muoibaythanghai.html";
+            document.getElementById("status").innerHTML = "Tớ nhớ cậu !";
           })
           .catch((error) => {
             // window.location.href = "muoibaythanghai.html";
+            document.getElementById("status").innerHTML = "Tớ nhớ cậu !";
           });
       }
     </script>
