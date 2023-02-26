@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>17/02/2023 => For Luận</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="main.js"></script>
+  </head>
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      /* background: #000; */
+      background-image: url(anhdep2.jpg);
+      background-size: cover;
+      background-position-x: center;
+    }
+    #typedtext {
+      width: calc(100% - 80px);
+      color: rgb(164, 155, 107);
+      position: absolute;
+      top: 50px;
+      text-align: center;
+      font-size: 2em;
+      margin: 0 40px;
+      font-family: "Lavishly Yours";
+      z-index: 5;
+      font-weight: 500;
+    }
+    .navigate-to {
+      position: absolute;
+      bottom: 16px;
+      right: 12px;
+      text-align: center;
+      z-index: 99999;
+    }
+    .navigate-to a {
+      font-family: "Roboto";
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      background: pink;
+      font-size: 12;
+      border-radius: 10px;
+      padding: 8px;
+      font-weight: bold;
+    }
+    .textfield {
+      width: calc(100% - 80px);
+      position: absolute;
+      top: 160px;
+
+      margin: 0 40px;
+      z-index: 6;
+    }
+    #textarealuan {
+      width: 100%;
+      min-height: 150px;
+      background: transparent;
+      padding: 12px;
+      color: rgb(164, 155, 107);
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 20px;
+      text-align: left;
+    }
+    .myStatus {
+      width: 100%;
+      position: absolute;
+      bottom: -26px;
+      right: 12px;
+      text-align: center;
+      z-index: 99999;
+    }
+    #status {
+      color: rgb(164, 155, 107);
+      text-align: center;
+      font-size: 16px;
+      margin: 0 40px;
+      font-family: "Roboto";
+      z-index: 5;
+      font-weight: 500;
+    }
+  </style>
+  <body>
+    <div id="typedtext"></div>
+    <div class="textfield">
+      <textarea id="textarealuan"></textarea>
+      <div class="navigate-to">
+        <a onclick="myFunction()">Gửi tớ</a>
+      </div>
+      <div class="myStatus"><span id="status"></span></div>
+    </div>
+    <script>
+      /*
+       * Settings
+       */
+      // Text
+      // set up text to print, each item in array is new line
+      var aText = new Array("Cảm xúc của cậu hôm nay thế nào vậy ?");
+      var iSpeed = 100; // time delay of print out
+      var iIndex = 0; // start printing array at this posision
+      var iArrLength = aText[0].length; // the length of the text array
+      var iScrollAt = 20; // start scrolling up at this many lines
+
+      var iTextPos = 0; // initialise text position
+      var sContents = ""; // initialise contents variable
+      var iRow; // initialise current row
+
+      function typewriter() {
+        sContents = " ";
+        iRow = Math.max(0, iIndex - iScrollAt);
+        var destination = document.getElementById("typedtext");
+
+        while (iRow < iIndex) {
+          sContents += aText[iRow++] + "<br />";
+        }
+        destination.innerHTML =
+          sContents + aText[iIndex].substring(0, iTextPos) + "_";
+        if (iTextPos++ == iArrLength) {
+          iTextPos = 0;
+          iIndex++;
+          if (iIndex != aText.length) {
+            iArrLength = aText[iIndex].length;
+            setTimeout("typewriter()", 500);
+          }
+        } else {
+          setTimeout("typewriter()", iSpeed);
+        }
+      }
+      typewriter();
+      function myFunction() {
+        const getDate = new Date();
+        const timeNow = getDate.getTime();
+        const valueInput = document.getElementById("textarealuan").value;
+        console.log("input=========================", valueInput);
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: valueInput, id: "1998", time: timeNow }),
+        };
+
+        fetch(
+          "https://63ef3817271439b7fe6a42fe.mockapi.io/api/v1/loginnote",
+          requestOptions
+        )
+          .then((response) => {
+            // window.location.href = "muoibaythanghai.html";
+            document.getElementById("status").innerHTML = "Tớ nhớ cậu !";
+          })
+          .catch((error) => {
+            // window.location.href = "muoibaythanghai.html";
+            document.getElementById("status").innerHTML = "Tớ nhớ cậu !";
+          });
+      }
+    </script>
+  </body>
+</html>

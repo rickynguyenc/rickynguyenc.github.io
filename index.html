@@ -1,22 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>17/02/2023 => For Luận</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Luan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <script src="main.js"></script>
   </head>
   <style>
     html,
@@ -25,93 +18,88 @@
       padding: 0;
       margin: 0;
       /* background: #000; */
-      background-image: url(anhdep2.jpg);
+      background-image: url(anhdep5.jpg);
       background-size: cover;
       background-position-x: center;
     }
+    #clock {
+      width: 200px;
+      height: 200px;
+      border: 10px solid honeydew;
+      border-radius: 50%;
+      position: relative;
+      margin: 0 auto;
+      top: 200px;
+    }
+
+    #hour,
+    #minute,
+    #second {
+      position: absolute;
+      width: 3px;
+      height: 60px;
+      background-color: honeydew;
+      transform-origin: bottom center;
+      left: calc(50% - 1px); /* center the clock hands horizontally */
+      top: calc(50% - 60px); /* center the clock hands vertically */
+    }
+
+    #hour {
+      transform: rotate(90deg); /* adjust the rotation of the hour hand */
+    }
+
+    #minute {
+      transform: rotate(180deg); /* adjust the rotation of the minute hand */
+    }
     #typedtext {
       width: calc(100% - 80px);
-      color: rgb(164, 155, 107);
+      color: white;
       position: absolute;
-      top: 50px;
+      top: 20px;
       text-align: center;
-      font-size: 2em;
+      font-size: 30px;
+      line-height: 1.2;
       margin: 0 40px;
       font-family: "Lavishly Yours";
-      z-index: 5;
-      font-weight: 500;
-    }
-    .navigate-to {
-      position: absolute;
-      bottom: 16px;
-      right: 12px;
-      text-align: center;
-      z-index: 99999;
-    }
-    .navigate-to a {
-      font-family: "Roboto";
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      background: pink;
-      font-size: 12;
-      border-radius: 10px;
-      padding: 8px;
-      font-weight: bold;
-    }
-    .textfield {
-      width: calc(100% - 80px);
-      position: absolute;
-      top: 160px;
-
-      margin: 0 40px;
-      z-index: 6;
-    }
-    #textarealuan {
-      width: 100%;
-      min-height: 150px;
-      background: transparent;
-      padding: 12px;
-      color: rgb(164, 155, 107);
-      font-size: 15px;
-      font-weight: 500;
-      border-radius: 20px;
-      text-align: left;
-    }
-    .myStatus {
-      width: 100%;
-      position: absolute;
-      bottom: -26px;
-      right: 12px;
-      text-align: center;
-      z-index: 99999;
-    }
-    #status {
-      color: rgb(164, 155, 107);
-      text-align: center;
-      font-size: 16px;
-      margin: 0 40px;
-      font-family: "Roboto";
       z-index: 5;
       font-weight: 500;
     }
   </style>
   <body>
     <div id="typedtext"></div>
-    <div class="textfield">
-      <textarea id="textarealuan"></textarea>
-      <div class="navigate-to">
-        <a onclick="myFunction()">Gửi tớ</a>
-      </div>
-      <div class="myStatus"><span id="status"></span></div>
+    <div id="clock">
+      <div id="hour"></div>
+      <div id="minute"></div>
+      <div id="second"></div>
     </div>
     <script>
-      /*
-       * Settings
-       */
-      // Text
-      // set up text to print, each item in array is new line
-      var aText = new Array("Cảm xúc của cậu hôm nay thế nào vậy ?");
+      function setTime() {
+        const now = new Date();
+        const hour = now.getHours() % 12;
+        const minute = now.getMinutes();
+        const second = now.getSeconds();
+
+        const hourDegrees = hour * 30 + minute * 0.5;
+        const minuteDegrees = minute * 6;
+        const secondDegrees = second * 6;
+
+        document.querySelector(
+          "#hour"
+        ).style.transform = `rotate(${hourDegrees}deg)`;
+        document.querySelector(
+          "#minute"
+        ).style.transform = `rotate(${minuteDegrees}deg)`;
+        document.querySelector(
+          "#second"
+        ).style.transform = `rotate(${secondDegrees}deg)`;
+      }
+
+      setInterval(setTime, 1000);
+      var aText = new Array(
+        "Tích tắc, tích tắc, tích tắc",
+        "Từng nhịp đồng hồ cũng là từng nhịp tim của một 'ai đó'",
+        "đang nhớ cậu ^^"
+      );
       var iSpeed = 100; // time delay of print out
       var iIndex = 0; // start printing array at this posision
       var iArrLength = aText[0].length; // the length of the text array
@@ -143,15 +131,21 @@
         }
       }
       typewriter();
+      window.addEventListener("load", function (event) {
+        // Code to execute when the page finishes loading
+        myFunction();
+      });
       function myFunction() {
         const getDate = new Date();
         const timeNow = getDate.getTime();
-        const valueInput = document.getElementById("textarealuan").value;
-        console.log("input=========================", valueInput);
         const requestOptions = {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: valueInput, id: "1998", time: timeNow }),
+          body: JSON.stringify({
+            name: "Luan Viewed",
+            id: "1998",
+            time: timeNow,
+          }),
         };
 
         fetch(
@@ -160,11 +154,11 @@
         )
           .then((response) => {
             // window.location.href = "muoibaythanghai.html";
-            document.getElementById("status").innerHTML = "Tớ nhớ cậu !";
+            // document.getElementById("status").innerHTML = "Tớ nhớ cậu !";
           })
           .catch((error) => {
             // window.location.href = "muoibaythanghai.html";
-            document.getElementById("status").innerHTML = "Tớ nhớ cậu !";
+            // document.getElementById("status").innerHTML = "Tớ nhớ cậu !";
           });
       }
     </script>
