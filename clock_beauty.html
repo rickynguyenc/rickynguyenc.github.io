@@ -18,9 +18,38 @@
       padding: 0;
       margin: 0;
       /* background: #000; */
-      background-image: url(background_login.jpg);
+      background-image: url(anhdep5.jpg);
       background-size: cover;
       background-position-x: center;
+    }
+    #clock {
+      width: 200px;
+      height: 200px;
+      border: 10px solid honeydew;
+      border-radius: 50%;
+      position: relative;
+      margin: 0 auto;
+      top: 200px;
+    }
+
+    #hour,
+    #minute,
+    #second {
+      position: absolute;
+      width: 3px;
+      height: 60px;
+      background-color: honeydew;
+      transform-origin: bottom center;
+      left: calc(50% - 1px); /* center the clock hands horizontally */
+      top: calc(50% - 60px); /* center the clock hands vertically */
+    }
+
+    #hour {
+      transform: rotate(90deg); /* adjust the rotation of the hour hand */
+    }
+
+    #minute {
+      transform: rotate(180deg); /* adjust the rotation of the minute hand */
     }
     #typedtext {
       width: calc(100% - 80px);
@@ -44,11 +73,32 @@
       <div id="second"></div>
     </div>
     <script>
+      function setTime() {
+        const now = new Date();
+        const hour = now.getHours() % 12;
+        const minute = now.getMinutes();
+        const second = now.getSeconds();
+
+        const hourDegrees = hour * 30 + minute * 0.5;
+        const minuteDegrees = minute * 6;
+        const secondDegrees = second * 6;
+
+        document.querySelector(
+          "#hour"
+        ).style.transform = `rotate(${hourDegrees}deg)`;
+        document.querySelector(
+          "#minute"
+        ).style.transform = `rotate(${minuteDegrees}deg)`;
+        document.querySelector(
+          "#second"
+        ).style.transform = `rotate(${secondDegrees}deg)`;
+      }
+
+      setInterval(setTime, 1000);
       var aText = new Array(
-        "Nếu là bình minh, tớ chúc cậu một ngày an vui.",
-        "Là đêm muộn, mong cho giấc ngủ của cậu ngon lành.",
-        "Mơ, hãy là một giấc mơ ngọt ngào và ...",
-        "có tớ, nhé Luận ^^",
+        "Tích tắc, tích tắc, tích tắc",
+        "Từng nhịp đồng hồ cũng là từng nhịp tim của một 'ai đó'",
+        "đang nhớ cậu ^^"
       );
       var iSpeed = 100; // time delay of print out
       var iIndex = 0; // start printing array at this posision
